@@ -9,20 +9,27 @@
 import Foundation
 import Alamofire
 
-public protocol ResponeValidator {
+public protocol ResponseValidator {
     func validate(statusCode: Int, request: URLRequest?, response: HTTPURLResponse, data: Data?) throws
 }
 
 public final class APIClient {
     public let session: Session
-    public let validator: ResponeValidator?
+    private let validator: ResponseValidator?
+    private let decoder: DataDecoder?
     
-    public init(session: Session, validator: ResponeValidator? = nil) {
+    public init(session: Session, validator: ResponseValidator? = nil, decoder: DataDecoder? = nil) {
         self.session = session
         self.validator = validator
+        self.decoder = decoder
     }
     
-    public convenience init(sessionConfiguration: URLSessionConfiguration = .default, interceptor: RequestInterceptor? = nil, validator: ResponeValidator? = nil, eventMonitors: [EventMonitor] = [], serverTrustManager: ServerTrustManager? = nil) {
+    public convenience init(sessionConfiguration: URLSessionConfiguration = .default,
+                            interceptor: RequestInterceptor? = nil,
+                            validator: ResponseValidator? = nil,
+                            eventMonitors: [EventMonitor] = [],
+                            serverTrustManager: ServerTrustManager? = nil,
+                            decoder: DataDecoder? = nil) {
         let sessionDelegate = SessionDelegate()
         let rootQueue = DispatchQueue(label: NSUUID().uuidString)
         let delegateQueue = OperationQueue()
@@ -32,7 +39,7 @@ public final class APIClient {
         
         let urlSession = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: delegateQueue)
         let session = Session(session: urlSession, delegate: sessionDelegate, rootQueue: rootQueue, interceptor: interceptor, serverTrustManager: serverTrustManager, eventMonitors: eventMonitors)
-        self.init(session: session, validator: validator)
+        self.init(session: session, validator: validator, decoder: decoder)
     }
     
     public func validatedRequest(forEndpoint endpoint: Endpoint) -> DataRequest {
@@ -67,9 +74,9 @@ extension APIClient {
     }
     
     @discardableResult
-    public func requestDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
+    public func requestDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
         return validatedRequest(forEndpoint: endpoint)
-            .responseDecodable(of: type) { response in
+            .responseDecodable(of: type, decoder: decoder ?? self.decoder ?? JSONDecoder()) { response in
                 completionHandler(response.convertedResponse())
             }
     }
@@ -87,7 +94,7 @@ extension AFDataResponse {
 }
 
 extension DataRequest {
-    fileprivate func validate(validator: ResponeValidator?) -> Self {
+    fileprivate func validate(validator: ResponseValidator?) -> Self {
         guard let validator = validator else {
             return validate()
         }

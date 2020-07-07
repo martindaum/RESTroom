@@ -38,4 +38,23 @@ final class RESTroomTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1)
     }
+    
+    func testSinglePost() {
+        let apiClient = APIClient()
+        
+        let expectation = XCTestExpectation()
+        
+        apiClient.requestDecodable(ofType: Post.self, forEndpoint: TestAPI.post(1)) { result in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.data.identifier, 1)
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail("Something went wrong")
+                expectation.fulfill()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 1)
+    }
 }

@@ -16,4 +16,8 @@ extension URL {
 
         self = url
     }
+    
+    public func appending(_ component: String) -> URL {
+        return appendingPathComponent(component)
+    }
 }

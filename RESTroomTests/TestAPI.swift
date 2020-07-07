@@ -11,8 +11,12 @@ import RESTroom
 
 struct TestAPI {
     static let baseURL: URL = URL(staticString: "https://jsonplaceholder.typicode.com")
-    
+
     static func posts() -> Endpoint {
-        return Endpoint(method: .get, url: baseURL.appendingPathComponent("posts"))
+        return Endpoint(method: .get, url: baseURL.appending("posts"))
+    }
+    
+    static func post(_ identifier: Int) -> Endpoint {
+        return Endpoint(method: .get, url: baseURL.appending("posts/\(identifier)"))
     }
 }
