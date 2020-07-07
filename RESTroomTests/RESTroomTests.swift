@@ -8,8 +8,9 @@
 
 import XCTest
 @testable import RESTroom
+import Mocker
 
-class RESTroomTests: XCTestCase {
+final class RESTroomTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,16 +20,22 @@ class RESTroomTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testPosts() {
+        let apiClient = APIClient()
+        
+        let expectation = XCTestExpectation()
+        
+        apiClient.requestDecodable(ofType: [Post].self, forEndpoint: TestAPI.posts()) { result in
+            switch result {
+            case .success(let response):
+                XCTAssertEqual(response.data.count, 100)
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail("Something went wrong")
+                expectation.fulfill()
+            }
         }
+        
+        wait(for: [expectation], timeout: 1)
     }
-
 }

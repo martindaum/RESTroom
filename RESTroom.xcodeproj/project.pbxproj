@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E0527A9247FD84200991BE7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0E0527A8247FD84200991BE7 /* Alamofire */; };
-		0E48A95524B468E3003E34C3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A95424B468E3003E34C3 /* API.swift */; };
 		0E48A96324B471AE003E34C3 /* APILogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A95E24B471AE003E34C3 /* APILogger.swift */; };
 		0E48A96424B471AE003E34C3 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A95F24B471AE003E34C3 /* Endpoint.swift */; };
 		0E48A96524B471AE003E34C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A96024B471AE003E34C3 /* Response.swift */; };
@@ -19,6 +18,10 @@
 		0E48A97924B474B9003E34C3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0E48A97824B474B9003E34C3 /* RxSwift */; };
 		0E48A97B24B474DB003E34C3 /* RESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; };
 		0E48A97C24B474DB003E34C3 /* RESTroom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0EC7E77F24B48F1900196C48 /* Mocker in Frameworks */ = {isa = PBXBuildFile; productRef = 0EC7E77E24B48F1900196C48 /* Mocker */; };
+		0EC7E78024B48F3000196C48 /* RxRESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E48A96D24B47409003E34C3 /* RxRESTroom.framework */; };
+		0EC7E78224B48F5C00196C48 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7E78124B48F5C00196C48 /* TestAPI.swift */; };
+		0EC7E78524B48F9F00196C48 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7E78424B48F9F00196C48 /* Post.swift */; };
 		0EEA48A1240D4FEB0020F5A0 /* RESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; };
 		0EEA48A6240D4FEB0020F5A0 /* RESTroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEA48A5240D4FEB0020F5A0 /* RESTroomTests.swift */; };
 		0EEA48A8240D4FEB0020F5A0 /* RESTroom.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EEA489A240D4FEA0020F5A0 /* RESTroom.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,7 +59,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E48A95424B468E3003E34C3 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E48A95E24B471AE003E34C3 /* APILogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APILogger.swift; sourceTree = "<group>"; };
 		0E48A95F24B471AE003E34C3 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		0E48A96024B471AE003E34C3 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -66,6 +68,8 @@
 		0E48A96F24B47409003E34C3 /* RxRESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxRESTroom.h; sourceTree = "<group>"; };
 		0E48A97024B47409003E34C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E48A97524B47443003E34C3 /* RESTroom+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RESTroom+Rx.swift"; sourceTree = "<group>"; };
+		0EC7E78124B48F5C00196C48 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
+		0EC7E78424B48F9F00196C48 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RESTroom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EEA489A240D4FEA0020F5A0 /* RESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESTroom.h; sourceTree = "<group>"; };
 		0EEA489B240D4FEA0020F5A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEA48A1240D4FEB0020F5A0 /* RESTroom.framework in Frameworks */,
+				0EC7E78024B48F3000196C48 /* RxRESTroom.framework in Frameworks */,
+				0EC7E77F24B48F1900196C48 /* Mocker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +124,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0EC7E78324B48F9700196C48 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0EC7E78424B48F9F00196C48 /* Post.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		0EEA488D240D4FEA0020F5A0 = {
@@ -158,9 +172,10 @@
 		0EEA48A4240D4FEB0020F5A0 /* RESTroomTests */ = {
 			isa = PBXGroup;
 			children = (
+				0EC7E78324B48F9700196C48 /* Model */,
+				0EC7E78124B48F5C00196C48 /* TestAPI.swift */,
 				0EEA48A5240D4FEB0020F5A0 /* RESTroomTests.swift */,
 				0EEA48A7240D4FEB0020F5A0 /* Info.plist */,
-				0E48A95424B468E3003E34C3 /* API.swift */,
 			);
 			path = RESTroomTests;
 			sourceTree = "<group>";
@@ -245,6 +260,9 @@
 				0EEA48A3240D4FEB0020F5A0 /* PBXTargetDependency */,
 			);
 			name = RESTroomTests;
+			packageProductDependencies = (
+				0EC7E77E24B48F1900196C48 /* Mocker */,
+			);
 			productName = RESTroomTests;
 			productReference = 0EEA48A0240D4FEB0020F5A0 /* RESTroomTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -284,6 +302,7 @@
 			packageReferences = (
 				0E0527A7247FD84200991BE7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0E48A97724B474B9003E34C3 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				0EC7E77D24B48F1900196C48 /* XCRemoteSwiftPackageReference "Mocker" */,
 			);
 			productRefGroup = 0EEA4898240D4FEA0020F5A0 /* Products */;
 			projectDirPath = "";
@@ -345,7 +364,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E48A95524B468E3003E34C3 /* API.swift in Sources */,
+				0EC7E78524B48F9F00196C48 /* Post.swift in Sources */,
+				0EC7E78224B48F5C00196C48 /* TestAPI.swift in Sources */,
 				0EEA48A6240D4FEB0020F5A0 /* RESTroomTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,6 +706,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		0EC7E77D24B48F1900196C48 /* XCRemoteSwiftPackageReference "Mocker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WeTransfer/Mocker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -698,6 +726,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0E48A97724B474B9003E34C3 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		0EC7E77E24B48F1900196C48 /* Mocker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EC7E77D24B48F1900196C48 /* XCRemoteSwiftPackageReference "Mocker" */;
+			productName = Mocker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -22,8 +22,16 @@ public final class APIClient {
         self.validator = validator
     }
     
-    public convenience init(urlSession: URLSession = URLSession(configuration: URLSessionConfiguration.default), interceptor: RequestInterceptor? = nil, validator: ResponeValidator? = nil, eventMonitors: [EventMonitor] = [], serverTrustManager: ServerTrustManager? = nil) {
-        let session = Session(session: urlSession, delegate: SessionDelegate(), rootQueue: DispatchQueue(label: NSUUID().uuidString), interceptor: interceptor, serverTrustManager: serverTrustManager, eventMonitors: eventMonitors)
+    public convenience init(sessionConfiguration: URLSessionConfiguration = .default, interceptor: RequestInterceptor? = nil, validator: ResponeValidator? = nil, eventMonitors: [EventMonitor] = [], serverTrustManager: ServerTrustManager? = nil) {
+        let sessionDelegate = SessionDelegate()
+        let rootQueue = DispatchQueue(label: NSUUID().uuidString)
+        let delegateQueue = OperationQueue()
+        delegateQueue.maxConcurrentOperationCount = 1
+        delegateQueue.underlyingQueue = rootQueue
+        delegateQueue.name = NSUUID().uuidString
+        
+        let urlSession = URLSession(configuration: sessionConfiguration, delegate: sessionDelegate, delegateQueue: delegateQueue)
+        let session = Session(session: urlSession, delegate: sessionDelegate, rootQueue: rootQueue, interceptor: interceptor, serverTrustManager: serverTrustManager, eventMonitors: eventMonitors)
         self.init(session: session, validator: validator)
     }
     
