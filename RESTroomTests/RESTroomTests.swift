@@ -21,7 +21,7 @@ final class RESTroomTests: XCTestCase {
     }
 
     func testPosts() {
-        let apiClient = APIClient()
+        let apiClient = APIClient(eventMonitors: [APILogger()])
         
         let expectation = XCTestExpectation()
         
@@ -40,7 +40,7 @@ final class RESTroomTests: XCTestCase {
     }
     
     func testSinglePost() {
-        let apiClient = APIClient()
+        let apiClient = APIClient(eventMonitors: [APILogger()])
         
         let expectation = XCTestExpectation()
         

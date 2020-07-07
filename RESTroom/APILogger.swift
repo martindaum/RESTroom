@@ -10,15 +10,33 @@ import Foundation
 import Alamofire
 
 open class APILogger: EventMonitor {
+    private let shouldLogDetails: Bool
+    private let logClosure: (String) -> Void
     public let queue = DispatchQueue(label: NSUUID().uuidString)
+    
+    init(shouldLogDetails: Bool = false, logClosure: ((String) -> Void)? = nil) {
+        self.shouldLogDetails = shouldLogDetails
+        self.logClosure = logClosure ?? { print($0) }
+    }
     
     // Event called when any type of Request is resumed.
     open func requestDidResume(_ request: Request) {
-        print("Resuming: \(request)")
+        logClosure("⬆️ \(request.description)")
     }
     
     // Event called whenever a DataRequest has parsed a response.
     open func request<Value>(_ request: DataRequest, didParseResponse response: DataResponse<Value, AFError>) {
-        print("Finished: \(response)")
+        var icon = "✅"
+        switch response.result {
+        case .failure(_):
+            icon = "🆘"
+        default:
+            break
+        }
+    
+        logClosure("⬇️ \(icon) \(request.description)")
+        if shouldLogDetails {
+            logClosure(response.debugDescription)
+        }
     }
 }
