@@ -8,7 +8,9 @@
 
 import Foundation
 import RxSwift
+#if !COCOAPODS
 import RESTroom
+#endif
 
 extension APIClient {
     public func requestData(forEndpoint endpoint: Endpoint) -> Single<Response<Data>> {
