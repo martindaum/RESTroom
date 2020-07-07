@@ -14,7 +14,7 @@ open class APILogger: EventMonitor {
     private let logClosure: (String) -> Void
     public let queue = DispatchQueue(label: NSUUID().uuidString)
     
-    init(shouldLogDetails: Bool = false, logClosure: ((String) -> Void)? = nil) {
+    public init(shouldLogDetails: Bool = false, logClosure: ((String) -> Void)? = nil) {
         self.shouldLogDetails = shouldLogDetails
         self.logClosure = logClosure ?? { print($0) }
     }
