@@ -80,6 +80,14 @@ extension APIClient {
                 completionHandler(response.convertedResponse())
             }
     }
+    
+    @discardableResult
+    public func requestSerialized<T: DataResponseSerializerProtocol>(with serializer: T, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T.SerializedObject>, Error>) -> Void) -> DataRequest {
+        return validatedRequest(forEndpoint: endpoint)
+            .response(responseSerializer: serializer) { response in
+                completionHandler(response.convertedResponse())
+            }
+    }
 }
 
 extension AFDataResponse {
