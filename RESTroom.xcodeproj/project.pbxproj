@@ -8,23 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		0E0527A9247FD84200991BE7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0E0527A8247FD84200991BE7 /* Alamofire */; };
-		0E48A96324B471AE003E34C3 /* APILogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A95E24B471AE003E34C3 /* APILogger.swift */; };
-		0E48A96424B471AE003E34C3 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A95F24B471AE003E34C3 /* Endpoint.swift */; };
-		0E48A96524B471AE003E34C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A96024B471AE003E34C3 /* Response.swift */; };
-		0E48A96624B471AE003E34C3 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A96124B471AE003E34C3 /* URL+Extensions.swift */; };
-		0E48A96724B471AE003E34C3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A96224B471AE003E34C3 /* APIClient.swift */; };
-		0E48A97124B47409003E34C3 /* RxRESTroom.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E48A96F24B47409003E34C3 /* RxRESTroom.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E48A97624B47443003E34C3 /* RESTroom+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48A97524B47443003E34C3 /* RESTroom+Rx.swift */; };
 		0E48A97924B474B9003E34C3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0E48A97824B474B9003E34C3 /* RxSwift */; };
 		0E48A97B24B474DB003E34C3 /* RESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; };
 		0E48A97C24B474DB003E34C3 /* RESTroom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0EC5D4AF24E2C3BB007187F2 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4A824E2C3BB007187F2 /* APIClient.swift */; };
+		0EC5D4B024E2C3BB007187F2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4A924E2C3BB007187F2 /* Response.swift */; };
+		0EC5D4B124E2C3BB007187F2 /* APILogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4AA24E2C3BB007187F2 /* APILogger.swift */; };
+		0EC5D4B224E2C3BC007187F2 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4AB24E2C3BB007187F2 /* URL+Extensions.swift */; };
+		0EC5D4B424E2C3BC007187F2 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4AD24E2C3BB007187F2 /* Endpoint.swift */; };
+		0EC5D4B924E2C3C4007187F2 /* RESTroom+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5D4B624E2C3C3007187F2 /* RESTroom+Rx.swift */; };
+		0EC5D4C024E2C457007187F2 /* RESTroom.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EC5D4BD24E2C443007187F2 /* RESTroom.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0EC5D4C124E2C45D007187F2 /* RxRESTroom.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EC5D4BE24E2C443007187F2 /* RxRESTroom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EC7E77F24B48F1900196C48 /* Mocker in Frameworks */ = {isa = PBXBuildFile; productRef = 0EC7E77E24B48F1900196C48 /* Mocker */; };
 		0EC7E78024B48F3000196C48 /* RxRESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E48A96D24B47409003E34C3 /* RxRESTroom.framework */; };
 		0EC7E78224B48F5C00196C48 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7E78124B48F5C00196C48 /* TestAPI.swift */; };
 		0EC7E78524B48F9F00196C48 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7E78424B48F9F00196C48 /* Post.swift */; };
 		0EEA48A1240D4FEB0020F5A0 /* RESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; };
 		0EEA48A6240D4FEB0020F5A0 /* RESTroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEA48A5240D4FEB0020F5A0 /* RESTroomTests.swift */; };
-		0EEA48A8240D4FEB0020F5A0 /* RESTroom.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EEA489A240D4FEA0020F5A0 /* RESTroom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,20 +59,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E48A95E24B471AE003E34C3 /* APILogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APILogger.swift; sourceTree = "<group>"; };
-		0E48A95F24B471AE003E34C3 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		0E48A96024B471AE003E34C3 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		0E48A96124B471AE003E34C3 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
-		0E48A96224B471AE003E34C3 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		0E48A96D24B47409003E34C3 /* RxRESTroom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxRESTroom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E48A96F24B47409003E34C3 /* RxRESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxRESTroom.h; sourceTree = "<group>"; };
-		0E48A97024B47409003E34C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E48A97524B47443003E34C3 /* RESTroom+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RESTroom+Rx.swift"; sourceTree = "<group>"; };
+		0EC5D4A824E2C3BB007187F2 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		0EC5D4A924E2C3BB007187F2 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		0EC5D4AA24E2C3BB007187F2 /* APILogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APILogger.swift; sourceTree = "<group>"; };
+		0EC5D4AB24E2C3BB007187F2 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		0EC5D4AD24E2C3BB007187F2 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		0EC5D4B624E2C3C3007187F2 /* RESTroom+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RESTroom+Rx.swift"; sourceTree = "<group>"; };
+		0EC5D4BD24E2C443007187F2 /* RESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESTroom.h; sourceTree = "<group>"; };
+		0EC5D4BE24E2C443007187F2 /* RxRESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxRESTroom.h; sourceTree = "<group>"; };
+		0EC5D4BF24E2C443007187F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EC7E78124B48F5C00196C48 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
 		0EC7E78424B48F9F00196C48 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RESTroom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0EEA489A240D4FEA0020F5A0 /* RESTroom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESTroom.h; sourceTree = "<group>"; };
-		0EEA489B240D4FEA0020F5A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EEA48A0240D4FEB0020F5A0 /* RESTroomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RESTroomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EEA48A5240D4FEB0020F5A0 /* RESTroomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTroomTests.swift; sourceTree = "<group>"; };
 		0EEA48A7240D4FEB0020F5A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,22 +108,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E48A96E24B47409003E34C3 /* RxRESTroom */ = {
-			isa = PBXGroup;
-			children = (
-				0E48A96F24B47409003E34C3 /* RxRESTroom.h */,
-				0E48A97024B47409003E34C3 /* Info.plist */,
-				0E48A97524B47443003E34C3 /* RESTroom+Rx.swift */,
-			);
-			path = RxRESTroom;
-			sourceTree = "<group>";
-		};
 		0E48A97A24B474DB003E34C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		0EC5D4A624E2C3BB007187F2 /* RESTroom */ = {
+			isa = PBXGroup;
+			children = (
+				0EC5D4A824E2C3BB007187F2 /* APIClient.swift */,
+				0EC5D4A924E2C3BB007187F2 /* Response.swift */,
+				0EC5D4AA24E2C3BB007187F2 /* APILogger.swift */,
+				0EC5D4AB24E2C3BB007187F2 /* URL+Extensions.swift */,
+				0EC5D4AD24E2C3BB007187F2 /* Endpoint.swift */,
+			);
+			name = RESTroom;
+			path = Sources/RESTroom;
+			sourceTree = "<group>";
+		};
+		0EC5D4B524E2C3C3007187F2 /* RxRESTroom */ = {
+			isa = PBXGroup;
+			children = (
+				0EC5D4B624E2C3C3007187F2 /* RESTroom+Rx.swift */,
+			);
+			name = RxRESTroom;
+			path = Sources/RxRESTroom;
+			sourceTree = "<group>";
+		};
+		0EC5D4BC24E2C443007187F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0EC5D4BD24E2C443007187F2 /* RESTroom.h */,
+				0EC5D4BE24E2C443007187F2 /* RxRESTroom.h */,
+				0EC5D4BF24E2C443007187F2 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = SOURCE_ROOT;
 		};
 		0EC7E78324B48F9700196C48 /* Model */ = {
 			isa = PBXGroup;
@@ -137,8 +158,9 @@
 		0EEA488D240D4FEA0020F5A0 = {
 			isa = PBXGroup;
 			children = (
-				0EEA4899240D4FEA0020F5A0 /* RESTroom */,
-				0E48A96E24B47409003E34C3 /* RxRESTroom */,
+				0EC5D4A624E2C3BB007187F2 /* RESTroom */,
+				0EC5D4B524E2C3C3007187F2 /* RxRESTroom */,
+				0EC5D4BC24E2C443007187F2 /* Supporting Files */,
 				0EEA48A4240D4FEB0020F5A0 /* RESTroomTests */,
 				0EEA4898240D4FEA0020F5A0 /* Products */,
 				0E48A97A24B474DB003E34C3 /* Frameworks */,
@@ -153,20 +175,6 @@
 				0E48A96D24B47409003E34C3 /* RxRESTroom.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0EEA4899240D4FEA0020F5A0 /* RESTroom */ = {
-			isa = PBXGroup;
-			children = (
-				0E48A96224B471AE003E34C3 /* APIClient.swift */,
-				0E48A95E24B471AE003E34C3 /* APILogger.swift */,
-				0E48A95F24B471AE003E34C3 /* Endpoint.swift */,
-				0E48A96024B471AE003E34C3 /* Response.swift */,
-				0E48A96124B471AE003E34C3 /* URL+Extensions.swift */,
-				0EEA489A240D4FEA0020F5A0 /* RESTroom.h */,
-				0EEA489B240D4FEA0020F5A0 /* Info.plist */,
-			);
-			path = RESTroom;
 			sourceTree = "<group>";
 		};
 		0EEA48A4240D4FEB0020F5A0 /* RESTroomTests */ = {
@@ -187,7 +195,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E48A97124B47409003E34C3 /* RxRESTroom.h in Headers */,
+				0EC5D4C124E2C45D007187F2 /* RxRESTroom.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +203,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEA48A8240D4FEB0020F5A0 /* RESTroom.h in Headers */,
+				0EC5D4C024E2C457007187F2 /* RESTroom.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E48A97624B47443003E34C3 /* RESTroom+Rx.swift in Sources */,
+				0EC5D4B924E2C3C4007187F2 /* RESTroom+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,11 +360,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E48A96424B471AE003E34C3 /* Endpoint.swift in Sources */,
-				0E48A96624B471AE003E34C3 /* URL+Extensions.swift in Sources */,
-				0E48A96524B471AE003E34C3 /* Response.swift in Sources */,
-				0E48A96724B471AE003E34C3 /* APIClient.swift in Sources */,
-				0E48A96324B471AE003E34C3 /* APILogger.swift in Sources */,
+				0EC5D4B124E2C3BB007187F2 /* APILogger.swift in Sources */,
+				0EC5D4B224E2C3BC007187F2 /* URL+Extensions.swift in Sources */,
+				0EC5D4B024E2C3BB007187F2 /* Response.swift in Sources */,
+				0EC5D4AF24E2C3BB007187F2 /* APIClient.swift in Sources */,
+				0EC5D4B424E2C3BC007187F2 /* Endpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,16 +404,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RxRESTroom/Info.plist;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martindaum.RxRESTroom;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -425,16 +433,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RxRESTroom/Info.plist;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martindaum.RxRESTroom;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -573,15 +581,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RESTroom/Info.plist;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martindaum.RESTroom;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -601,15 +609,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RESTroom/Info.plist;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martindaum.RESTroom;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
