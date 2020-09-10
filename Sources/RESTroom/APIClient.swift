@@ -52,7 +52,7 @@ extension APIClient {
     @discardableResult
     public func requestData(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> DataRequest {
         return validatedRequest(forEndpoint: endpoint)
-            .responseData { response in
+            .responseData(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse())
             }
     }
@@ -60,7 +60,7 @@ extension APIClient {
     @discardableResult
     public func requestString(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<String>, Error>) -> Void) -> DataRequest {
         return validatedRequest(forEndpoint: endpoint)
-            .responseString { response in
+            .responseString(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse())
             }
     }
@@ -68,7 +68,7 @@ extension APIClient {
     @discardableResult
     public func requestJSON(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> DataRequest {
         return validatedRequest(forEndpoint: endpoint)
-            .responseJSON { response in
+            .responseJSON(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse())
             }
     }
@@ -76,7 +76,7 @@ extension APIClient {
     @discardableResult
     public func requestDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
         return validatedRequest(forEndpoint: endpoint)
-            .responseDecodable(of: type, decoder: decoder ?? self.decoder ?? JSONDecoder()) { response in
+            .responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor, decoder: decoder ?? self.decoder ?? JSONDecoder()) { response in
                 completionHandler(response.convertedResponse())
             }
     }

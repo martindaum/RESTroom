@@ -15,12 +15,14 @@ public final class Endpoint {
     private let requestClosure: () throws -> URLRequest
     let validator: ResponseValidator?
     let interceptor: RequestInterceptor?
+    let preprocessor: DataPreprocessor
     
-    public init(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoding: ParameterEncoding = URLEncoding.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil) {
+    public init(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoding: ParameterEncoding = URLEncoding.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor()) {
         self.method = method
         self.url = url
         self.validator = validator
         self.interceptor = interceptor
+        self.preprocessor = preprocessor
         
         requestClosure = {
             let request = try URLRequest(url: url, method: method, headers: headers)
@@ -28,11 +30,12 @@ public final class Endpoint {
         }
     }
     
-    public init<Parameters: Encodable>(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoder: ParameterEncoder = URLEncodedFormParameterEncoder.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil) {
+    public init<Parameters: Encodable>(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoder: ParameterEncoder = URLEncodedFormParameterEncoder.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor()) {
         self.method = method
         self.url = url
         self.validator = validator
         self.interceptor = interceptor
+        self.preprocessor = preprocessor
         
         requestClosure = {
             let request = try URLRequest(url: url, method: method, headers: headers)
