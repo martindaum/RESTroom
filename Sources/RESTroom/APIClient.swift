@@ -96,7 +96,7 @@ extension AFDataResponse {
         case .success(let data):
             return .success(Response(data: data, request: request, response: response, metrics: metrics))
         case .failure(let error):
-            return .failure(error)
+            return .failure(error.asAFError?.underlyingError ?? error)
         }
     }
 }
