@@ -13,7 +13,7 @@ public protocol JSONDataPreprocessor: DataPreprocessor {
 }
 
 extension JSONDataPreprocessor {
-    func preprocess(_ data: Data) throws -> Data {
+    public func preprocess(_ data: Data) throws -> Data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
             return data
         }
