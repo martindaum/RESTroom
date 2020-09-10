@@ -8,6 +8,11 @@
 
 import Foundation
 import Alamofire
+import os.log
+
+struct Log {
+    static var restroom = OSLog(subsystem: "com.martindaum.RESTRoom", category: "RESTroom")
+}
 
 open class APILogger: EventMonitor {
     private let shouldLogDetails: Bool
@@ -16,7 +21,13 @@ open class APILogger: EventMonitor {
     
     public init(shouldLogDetails: Bool = false, logClosure: ((String) -> Void)? = nil) {
         self.shouldLogDetails = shouldLogDetails
-        self.logClosure = logClosure ?? { print($0) }
+        self.logClosure = logClosure ?? { message in
+            if #available(iOS 12.0, *) {
+                os_log(.debug, log: OSLog(subsystem: "com.martindaum.RESTRoom", category: "RESTroom"), "%@", message)
+            } else {
+                print(message)
+            }
+        }
     }
     
     // Event called when any type of Request is resumed.
