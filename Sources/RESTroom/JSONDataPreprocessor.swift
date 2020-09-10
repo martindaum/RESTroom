@@ -8,8 +8,12 @@
 import Foundation
 import Alamofire
 
-open class JSONDataPreprocessor: DataPreprocessor {
-    public func preprocess(_ data: Data) throws -> Data {
+public protocol JSONDataPreprocessor: DataPreprocessor {
+    func preprocessJSON(_ jsonData: [String: Any]) -> [String: Any]
+}
+
+extension JSONDataPreprocessor {
+    func preprocess(_ data: Data) throws -> Data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
             return data
         }
@@ -20,10 +24,6 @@ open class JSONDataPreprocessor: DataPreprocessor {
             return data
         }
         
-        return jsonData
-    }
-    
-    open func preprocessJSON(_ jsonData: [String: Any]) -> [String: Any] {
         return jsonData
     }
 }
