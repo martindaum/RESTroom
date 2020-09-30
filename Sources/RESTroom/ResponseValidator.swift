@@ -9,11 +9,6 @@
 import Foundation
 import Alamofire
 
-public enum ResponseValidationResult {
-    case validated
-    case skipped
-}
-
 public protocol ResponseValidator {
-    func validate(request: DataRequest) throws -> ResponseValidationResult
+    func validate(statusCode: Int, request: URLRequest?, response: HTTPURLResponse, data: Data?) throws
 }

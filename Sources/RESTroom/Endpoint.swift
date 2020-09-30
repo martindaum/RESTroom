@@ -16,13 +16,15 @@ public final class Endpoint {
     let validator: ResponseValidator?
     let interceptor: RequestInterceptor?
     let preprocessor: DataPreprocessor
+    let mapper: ErrorMapper?
     
-    public init(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoding: ParameterEncoding = URLEncoding.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor()) {
+    public init(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoding: ParameterEncoding = URLEncoding.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor(), mapper: ErrorMapper? = nil) {
         self.method = method
         self.url = url
         self.validator = validator
         self.interceptor = interceptor
         self.preprocessor = preprocessor
+        self.mapper = mapper
         
         requestClosure = {
             let request = try URLRequest(url: url, method: method, headers: headers)
@@ -30,12 +32,13 @@ public final class Endpoint {
         }
     }
     
-    public init<Parameters: Encodable>(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoder: ParameterEncoder = URLEncodedFormParameterEncoder.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor()) {
+    public init<Parameters: Encodable>(method: HTTPMethod, url: URL, headers: HTTPHeaders? = nil, parameters: Parameters? = nil, encoder: ParameterEncoder = URLEncodedFormParameterEncoder.default, validator: ResponseValidator? = nil, interceptor: RequestInterceptor? = nil, preprocessor: DataPreprocessor = PassthroughPreprocessor(), mapper: ErrorMapper? = nil) {
         self.method = method
         self.url = url
         self.validator = validator
         self.interceptor = interceptor
         self.preprocessor = preprocessor
+        self.mapper = mapper
         
         requestClosure = {
             let request = try URLRequest(url: url, method: method, headers: headers)

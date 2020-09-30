@@ -11,7 +11,8 @@ import XCTest
 import Mocker
 
 final class RESTroomTests: XCTestCase {
-
+    let apiClient = APIClient(eventMonitors: [APILogger()])
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -21,8 +22,6 @@ final class RESTroomTests: XCTestCase {
     }
 
     func testPosts() {
-        let apiClient = APIClient(eventMonitors: [APILogger()])
-        
         let expectation = XCTestExpectation()
         
         apiClient.requestDecodable(ofType: [Post].self, forEndpoint: TestAPI.posts()) { result in
@@ -40,8 +39,6 @@ final class RESTroomTests: XCTestCase {
     }
     
     func testSinglePost() {
-        let apiClient = APIClient(eventMonitors: [APILogger()])
-        
         let expectation = XCTestExpectation()
         
         apiClient.requestDecodable(ofType: Post.self, forEndpoint: TestAPI.post(1)) { result in
@@ -56,5 +53,22 @@ final class RESTroomTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 1)
+    }
+    
+    func testValidation() {
+        let expectation = XCTestExpectation()
+        
+        apiClient.requestJSON(forEndpoint: TestAPI.validation()) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail("Something went wrong")
+                expectation.fulfill()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 5)
     }
 }

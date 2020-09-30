@@ -19,4 +19,8 @@ struct TestAPI {
     static func post(_ identifier: Int) -> Endpoint {
         return Endpoint(method: .get, url: baseURL.appending("posts/\(identifier)"))
     }
+    
+    static func validation() -> Endpoint {
+        return Endpoint(method: .get, url: baseURL.appending("posts"), validator: TestValidator())
+    }
 }
