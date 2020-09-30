@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 public protocol ResponseValidator {
-    func validate(statusCode: Int, request: URLRequest?, response: HTTPURLResponse, data: Data?) throws
+    func validate(request: DataRequest) throws
 }
 
 public final class APIClient {
@@ -109,7 +109,7 @@ extension DataRequest {
         
         return validate { request, response, data in
             do {
-                try validator.validate(statusCode: response.statusCode, request: request, response: response, data: data)
+                try validator.validate(request: self)
                 return .success(())
             } catch {
                 return .failure(error)
