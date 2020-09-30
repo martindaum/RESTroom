@@ -9,9 +9,7 @@
 import Foundation
 import Alamofire
 
-public protocol ResponseValidator {
-    func validate(request: DataRequest) throws
-}
+
 
 public final class APIClient {
     public let session: Session
@@ -107,11 +105,16 @@ extension DataRequest {
             return validate()
         }
         
-        return validate { request, response, data in
-            do {
-                try validator.validate(request: self)
-                return .success(())
-            } catch {
+        do {
+            let result = try validator.validate(request: self)
+            switch result {
+            case .validated:
+                return self
+            case .skipped:
+                return validate()
+            }
+        } catch {
+            return validate { _, _, _ in
                 return .failure(error)
             }
         }
