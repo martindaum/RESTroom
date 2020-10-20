@@ -13,6 +13,23 @@ import RESTroom
 #endif
 
 extension APIClient {
+    public func request(forEndpoint endpoint: Endpoint) -> Single<Response<Void>> {
+        return Single.create { single in
+            let request = self.request(forEndpoint: endpoint) { result in
+                switch result {
+                case .success(let object):
+                    single(.success(object))
+                case .failure(let error):
+                    single(.error(error))
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+    
     public func requestData(forEndpoint endpoint: Endpoint) -> Single<Response<Data>> {
         return Single.create { single in
             let request = self.requestData(forEndpoint: endpoint) { result in

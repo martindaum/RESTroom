@@ -52,6 +52,15 @@ public final class APIClient {
 
 extension APIClient {
     @discardableResult
+    public func request(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Void>, Error>) -> Void) -> DataRequest {
+        let mapper = endpoint.mapper ?? self.mapper
+        return validatedRequest(forEndpoint: endpoint)
+            .responseData(dataPreprocessor: endpoint.preprocessor) { response in
+                completionHandler(response.voidResponse(withMapper: mapper))
+            }
+    }
+    
+    @discardableResult
     public func requestData(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
         return validatedRequest(forEndpoint: endpoint)
@@ -102,6 +111,19 @@ extension AFDataResponse {
         switch result {
         case .success(let data):
             return .success(Response(data: data, request: request, response: response, metrics: metrics))
+        case .failure(let error):
+            var mappedError = error.asAFError?.underlyingError ?? error
+            if let mapper = mapper {
+                mappedError = mapper.mapError(mappedError)
+            }
+            return .failure(mappedError)
+        }
+    }
+    
+    fileprivate func voidResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Void>, Error> {
+        switch result {
+        case .success:
+            return .success(Response(data: (), request: request, response: response, metrics: metrics))
         case .failure(let error):
             var mappedError = error.asAFError?.underlyingError ?? error
             if let mapper = mapper {
