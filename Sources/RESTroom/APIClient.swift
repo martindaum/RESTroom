@@ -13,9 +13,9 @@ import Alamofire
 
 public final class APIClient {
     public let session: Session
-    private let validator: ResponseValidator?
-    private let decoder: DataDecoder?
-    private let mapper: ErrorMapper?
+    let validator: ResponseValidator?
+    let decoder: DataDecoder?
+    let mapper: ErrorMapper?
     
     public init(session: Session, validator: ResponseValidator? = nil, decoder: DataDecoder? = nil, mapper: ErrorMapper? = nil) {
         self.session = session
@@ -106,21 +106,27 @@ extension APIClient {
     }
 }
 
+extension Error {
+    func map(withMapper mapper: ErrorMapper? = nil) -> Error {
+        var mappedError = self.asAFError?.underlyingError ?? self
+        if let mapper = mapper {
+            mappedError = mapper.mapError(mappedError)
+        }
+        return mappedError
+    }
+}
+
 extension AFDataResponse {
-    fileprivate func convertedResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Success>, Error> {
+    func convertedResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Success>, Error> {
         switch result {
         case .success(let data):
             return .success(Response(data: data, request: request, response: response, metrics: metrics))
         case .failure(let error):
-            var mappedError = error.asAFError?.underlyingError ?? error
-            if let mapper = mapper {
-                mappedError = mapper.mapError(mappedError)
-            }
-            return .failure(mappedError)
+            return .failure(error.map(withMapper: mapper))
         }
     }
     
-    fileprivate func voidResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Void>, Error> {
+    func voidResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Void>, Error> {
         switch result {
         case .success:
             return .success(Response(data: (), request: request, response: response, metrics: metrics))
@@ -135,7 +141,7 @@ extension AFDataResponse {
 }
 
 extension DataRequest {
-    fileprivate func validate(validator: ResponseValidator?) -> Self {
+    func validate(validator: ResponseValidator?) -> Self {
         guard let validator = validator else {
             return self
         }

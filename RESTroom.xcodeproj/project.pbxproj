@@ -11,6 +11,7 @@
 		0E48A97924B474B9003E34C3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0E48A97824B474B9003E34C3 /* RxSwift */; };
 		0E48A97B24B474DB003E34C3 /* RESTroom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; };
 		0E48A97C24B474DB003E34C3 /* RESTroom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEA4897240D4FEA0020F5A0 /* RESTroom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E6ACFA825820CF100255A17 /* RESTroom+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6ACFA725820CF100255A17 /* RESTroom+Combine.swift */; };
 		0EB74444250ABE0B009D3FB4 /* JSONDataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB74443250ABE0B009D3FB4 /* JSONDataPreprocessor.swift */; };
 		0EB8242225245D580070D778 /* ResponseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8242125245D580070D778 /* ResponseValidator.swift */; };
 		0EB8246625247ACA0070D778 /* TestValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8246525247ACA0070D778 /* TestValidator.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		0E48A96D24B47409003E34C3 /* RxRESTroom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxRESTroom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E6ACFA725820CF100255A17 /* RESTroom+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RESTroom+Combine.swift"; sourceTree = "<group>"; };
 		0EB74443250ABE0B009D3FB4 /* JSONDataPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDataPreprocessor.swift; sourceTree = "<group>"; };
 		0EB8242125245D580070D778 /* ResponseValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseValidator.swift; sourceTree = "<group>"; };
 		0EB8246525247ACA0070D778 /* TestValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestValidator.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				0EB74443250ABE0B009D3FB4 /* JSONDataPreprocessor.swift */,
 				0EB8242125245D580070D778 /* ResponseValidator.swift */,
 				0EB824692524819F0070D778 /* ErrorMapper.swift */,
+				0E6ACFA725820CF100255A17 /* RESTroom+Combine.swift */,
 			);
 			name = RESTroom;
 			path = Sources/RESTroom;
@@ -374,6 +377,7 @@
 			files = (
 				0EC5D4B124E2C3BB007187F2 /* APILogger.swift in Sources */,
 				0EC5D4B224E2C3BC007187F2 /* URL+Extensions.swift in Sources */,
+				0E6ACFA825820CF100255A17 /* RESTroom+Combine.swift in Sources */,
 				0EC5D4B024E2C3BB007187F2 /* Response.swift in Sources */,
 				0EB8246A2524819F0070D778 /* ErrorMapper.swift in Sources */,
 				0EB8242225245D580070D778 /* ResponseValidator.swift in Sources */,

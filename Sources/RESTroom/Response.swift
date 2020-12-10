@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-public struct Response<T> {
-    public let data: T
+public struct Response<Element> {
+    public let data: Element
     public let request: URLRequest?
     public let response: HTTPURLResponse?
     public let metrics: URLSessionTaskMetrics?
     
-    public init(data: T, request: URLRequest? = nil, response: HTTPURLResponse? = nil,  metrics: URLSessionTaskMetrics? = nil) {
+    public init(data: Element, request: URLRequest? = nil, response: HTTPURLResponse? = nil,  metrics: URLSessionTaskMetrics? = nil) {
         self.data = data
         self.request = request
         self.response = response
