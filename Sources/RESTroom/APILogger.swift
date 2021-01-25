@@ -8,11 +8,10 @@
 
 import Foundation
 import Alamofire
-import os.log
 
-struct Log {
-    static var restroom = OSLog(subsystem: "com.martindaum.RESTRoom", category: "RESTroom")
-}
+#if canImport(os)
+import os.log
+#endif
 
 open class APILogger: EventMonitor {
     private let shouldLogDetails: Bool
