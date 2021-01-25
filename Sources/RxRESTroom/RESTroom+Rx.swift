@@ -20,7 +20,7 @@ extension APIClient {
                 case .success(let object):
                     single(.success(object))
                 case .failure(let error):
-                    single(.error(error))
+                    single(.failure(error))
                 }
             }
 
@@ -37,7 +37,7 @@ extension APIClient {
                 case .success(let object):
                     single(.success(object))
                 case .failure(let error):
-                    single(.error(error))
+                    single(.failure(error))
                 }
             }
 
@@ -54,7 +54,7 @@ extension APIClient {
                 case .success(let object):
                     single(.success(object))
                 case .failure(let error):
-                    single(.error(error))
+                    single(.failure(error))
                 }
             }
 
@@ -71,7 +71,7 @@ extension APIClient {
                 case .success(let object):
                     single(.success(object))
                 case .failure(let error):
-                    single(.error(error))
+                    single(.failure(error))
                 }
             }
 
@@ -88,7 +88,7 @@ extension APIClient {
                 case .success(let object):
                     single(.success(object))
                 case .failure(let error):
-                    single(.error(error))
+                    single(.failure(error))
                 }
             }
 

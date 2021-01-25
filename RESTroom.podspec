@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'RESTroom'
-  s.version          = '1.0.7'
+  s.version          = '1.2.0'
   s.summary 		     = 'Easy APIClient written in Swift'
   s.homepage         = 'https://github.com/martindaum/RESTroom'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -24,6 +24,6 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = 'RxRESTroom/*.{swift}'
     ss.dependency "RESTroom/Core"
-    ss.dependency "RxSwift", "~> 5.0"
+    ss.dependency "RxSwift", "~> 6.0"
   end
 end
