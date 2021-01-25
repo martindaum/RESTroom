@@ -21,7 +21,7 @@ open class APILogger: EventMonitor {
     public init(shouldLogDetails: Bool = false, logClosure: ((String) -> Void)? = nil) {
         self.shouldLogDetails = shouldLogDetails
         self.logClosure = logClosure ?? { message in
-            if #available(iOS 12.0, tvOS 12.0, watchOS 5.0, *) {
+            if #available(iOS 12.0, tvOS 12.0, watchOS 5.0, macOS 10.14, *) {
                 os_log(.debug, log: OSLog(subsystem: "com.martindaum.RESTRoom", category: "RESTroom"), "%@", message)
             } else {
                 print(message)
