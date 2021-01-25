@@ -16,13 +16,13 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.subspec "Core" do |ss|
-    ss.source_files = 'RESTroom/*.{swift}'
+    ss.source_files = 'Sources/RESTroom/*.{swift}'
     ss.dependency "Alamofire", "~> 5.0"
     ss.framework  = "Foundation"
   end
 
   s.subspec "RxSwift" do |ss|
-    ss.source_files = 'RxRESTroom/*.{swift}'
+    ss.source_files = 'Sources/RxRESTroom/*.{swift}'
     ss.dependency "RESTroom/Core"
     ss.dependency "RxSwift", "~> 6.0"
   end
