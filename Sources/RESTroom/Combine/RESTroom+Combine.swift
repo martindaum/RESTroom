@@ -15,22 +15,29 @@ import Combine
 public extension APIClient {
     func publishData(forEndpoint endpoint: Endpoint) -> AnyPublisher<Response<Data>, Error> {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .publishData(preprocessor: endpoint.preprocessor)
             .convertResponse(withMapper: mapper)
     }
     
     func publishString(forEndpoint endpoint: Endpoint) -> AnyPublisher<Response<String>, Error> {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .publishString(preprocessor: endpoint.preprocessor)
             .convertResponse(withMapper: mapper)
     }
     
     func publishDecodable<Element: Decodable>(ofType type: Element.Type, forEndpoint endpoint: Endpoint) -> AnyPublisher<Response<Element>, Error> {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .publishDecodable(preprocessor: endpoint.preprocessor)
+            .convertResponse(withMapper: mapper)
+    }
+    
+    func publishResponse<T: ResponseSerializer>(serializedWith serializer: T, forEndpoint endpoint: Endpoint) -> AnyPublisher<Response<T.SerializedObject>, Error> {
+        let mapper = endpoint.mapper ?? self.mapper
+        return dataRequest(forEndpoint: endpoint)
+            .publishResponse(using: serializer)
             .convertResponse(withMapper: mapper)
     }
 }

@@ -43,7 +43,7 @@ public final class APIClient {
         self.init(session: session, validator: validator, decoder: decoder, mapper: mapper)
     }
     
-    public func validatedRequest(forEndpoint endpoint: Endpoint) -> DataRequest {
+    func dataRequest(forEndpoint endpoint: Endpoint) -> DataRequest {
         return session.request(endpoint, interceptor: endpoint.interceptor)
             .validate()
             .validate(validator: endpoint.validator ?? validator)
@@ -52,54 +52,54 @@ public final class APIClient {
 
 extension APIClient {
     @discardableResult
-    public func request(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Void>, Error>) -> Void) -> DataRequest {
+    public func response(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Void>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .responseData(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.voidResponse(withMapper: mapper))
             }
     }
     
     @discardableResult
-    public func requestData(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> DataRequest {
+    public func responseData(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .responseData(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse(withMapper: mapper))
             }
     }
     
     @discardableResult
-    public func requestString(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<String>, Error>) -> Void) -> DataRequest {
+    public func responseString(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<String>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .responseString(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse(withMapper: mapper))
             }
     }
     
     @discardableResult
-    public func requestJSON(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> DataRequest {
+    public func responseJSON(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .responseJSON(dataPreprocessor: endpoint.preprocessor) { response in
                 completionHandler(response.convertedResponse(withMapper: mapper))
             }
     }
     
     @discardableResult
-    public func requestDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
+    public func responseDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor, decoder: decoder ?? self.decoder ?? JSONDecoder()) { response in
                 completionHandler(response.convertedResponse(withMapper: mapper))
             }
     }
     
     @discardableResult
-    public func requestSerialized<T: DataResponseSerializerProtocol>(with serializer: T, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T.SerializedObject>, Error>) -> Void) -> DataRequest {
+    public func response<T: DataResponseSerializerProtocol>(serializedWith serializer: T, forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<T.SerializedObject>, Error>) -> Void) -> DataRequest {
         let mapper = endpoint.mapper ?? self.mapper
-        return validatedRequest(forEndpoint: endpoint)
+        return dataRequest(forEndpoint: endpoint)
             .response(responseSerializer: serializer) { response in
                 completionHandler(response.convertedResponse(withMapper: mapper))
             }
