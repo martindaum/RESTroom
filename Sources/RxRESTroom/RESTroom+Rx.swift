@@ -83,9 +83,9 @@ extension EndpointRequest where T: DataRequest {
         }
     }
     
-    public func responseDecodable<T: Decodable>(ofType type: T.Type) -> Single<Response<T>> {
+    public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: Alamofire.DataDecoder = JSONDecoder()) -> Single<Response<T>> {
         return Single.create { single in
-            let request = self.responseDecodable(ofType: type) { result in
+            let request = self.responseDecodable(ofType: type, decoder: decoder) { result in
                 switch result {
                 case .success(let object):
                     single(.success(object))

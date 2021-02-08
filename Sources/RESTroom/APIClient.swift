@@ -116,9 +116,9 @@ extension EndpointRequest where T: DataRequest {
     }
     
     @discardableResult
-    public func responseDecodable<T: Decodable>(ofType type: T.Type, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
+    public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: DataDecoder = JSONDecoder(), completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
         let mapper = self.mapper
-        let request = self.request.responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor) { response in
+        let request = self.request.responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor, decoder: decoder) { response in
             completionHandler(response.convertedResponse(withMapper: mapper))
         }
         return EndpointRequest(previous: self, request: request)
