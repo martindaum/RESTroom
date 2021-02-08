@@ -11,3 +11,13 @@ import Foundation
 public protocol ErrorMapper {
     func mapError(_ error: Error) -> Error
 }
+
+extension Error {
+    func map(withMapper mapper: ErrorMapper? = nil) -> Error {
+        var mappedError = self.asAFError?.underlyingError ?? self
+        if let mapper = mapper {
+            mappedError = mapper.mapError(mappedError)
+        }
+        return mappedError
+    }
+}

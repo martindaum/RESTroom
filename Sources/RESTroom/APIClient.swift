@@ -9,8 +9,6 @@
 import Foundation
 import Alamofire
 
-
-
 public final class APIClient {
     public let session: Session
     let validator: ResponseValidator?
@@ -43,8 +41,8 @@ public final class APIClient {
         self.init(session: session, validator: validator, decoder: decoder, mapper: mapper)
     }
     
-    func dataRequest(forEndpoint endpoint: Endpoint) -> DataRequest {
-        return session.request(endpoint, interceptor: endpoint.interceptor)
+    func request<T: DataRequest>(_ request: T, forEndpoint endpoint: Endpoint) -> T {
+        return request
             .validate()
             .validate(validator: endpoint.validator ?? validator)
     }
@@ -52,107 +50,106 @@ public final class APIClient {
 
 extension APIClient {
     @discardableResult
-    public func response(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Void>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .responseData(dataPreprocessor: endpoint.preprocessor) { response in
-                completionHandler(response.voidResponse(withMapper: mapper))
-            }
+    public func request(forEndpoint endpoint: Endpoint) -> EndpointRequest<DataRequest> {
+        return EndpointRequest(endpoint: endpoint,
+                               request: request(session.request(endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               mapper: endpoint.mapper ?? mapper)
     }
     
     @discardableResult
-    public func responseData(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .responseData(dataPreprocessor: endpoint.preprocessor) { response in
-                completionHandler(response.convertedResponse(withMapper: mapper))
-            }
+    public func upload(data: Data, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
+        return EndpointRequest(endpoint: endpoint,
+                               request: request(session.upload(data, to: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               mapper: endpoint.mapper ?? mapper)
     }
     
     @discardableResult
-    public func responseString(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<String>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .responseString(dataPreprocessor: endpoint.preprocessor) { response in
-                completionHandler(response.convertedResponse(withMapper: mapper))
-            }
+    public func upload(file url: URL, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
+        return EndpointRequest(endpoint: endpoint,
+                               request: request(session.upload(url, to: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               mapper: endpoint.mapper ?? mapper)
     }
     
     @discardableResult
-    public func responseJSON(forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .responseJSON(dataPreprocessor: endpoint.preprocessor) { response in
-                completionHandler(response.convertedResponse(withMapper: mapper))
-            }
-    }
-    
-    @discardableResult
-    public func responseDecodable<T: Decodable>(ofType type: T.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor, decoder: decoder ?? self.decoder ?? JSONDecoder()) { response in
-                completionHandler(response.convertedResponse(withMapper: mapper))
-            }
-    }
-    
-    @discardableResult
-    public func response<T: DataResponseSerializerProtocol>(serializedWith serializer: T, forEndpoint endpoint: Endpoint, completionHandler: @escaping (Result<Response<T.SerializedObject>, Error>) -> Void) -> DataRequest {
-        let mapper = endpoint.mapper ?? self.mapper
-        return dataRequest(forEndpoint: endpoint)
-            .response(responseSerializer: serializer) { response in
-                completionHandler(response.convertedResponse(withMapper: mapper))
-            }
+    public func download(fromEndpoint endpoint: Endpoint) -> EndpointRequest<DownloadRequest> {
+        return EndpointRequest(endpoint: endpoint,
+                               request: session.download(endpoint, interceptor: endpoint.interceptor),
+                               mapper: endpoint.mapper ?? mapper)
     }
 }
 
-extension Error {
-    func map(withMapper mapper: ErrorMapper? = nil) -> Error {
-        var mappedError = self.asAFError?.underlyingError ?? self
-        if let mapper = mapper {
-            mappedError = mapper.mapError(mappedError)
+extension EndpointRequest where T: DataRequest {
+    @discardableResult
+    public func response(completionHandler: @escaping (Result<Response<Void>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseData(dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.voidResponse(withMapper: mapper))
         }
-        return mappedError
-    }
-}
-
-extension AFDataResponse {
-    func convertedResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Success>, Error> {
-        switch result {
-        case .success(let data):
-            return .success(Response(data: data, request: request, response: response, metrics: metrics))
-        case .failure(let error):
-            return .failure(error.map(withMapper: mapper))
-        }
+        return EndpointRequest(previous: self, request: request)
     }
     
-    func voidResponse(withMapper mapper: ErrorMapper? = nil) -> Result<Response<Void>, Error> {
-        switch result {
-        case .success:
-            return .success(Response(data: (), request: request, response: response, metrics: metrics))
-        case .failure(let error):
-            var mappedError = error.asAFError?.underlyingError ?? error
-            if let mapper = mapper {
-                mappedError = mapper.mapError(mappedError)
-            }
-            return .failure(mappedError)
+    @discardableResult
+    public func responseData(completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseData(dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
         }
+        return EndpointRequest(previous: self, request: request)
+    }
+    
+    @discardableResult
+    public func responseString(completionHandler: @escaping (Result<Response<String>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseString(dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
+        }
+        return EndpointRequest(previous: self, request: request)
+    }
+    
+    @discardableResult
+    public func responseJSON(completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseJSON(dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
+        }
+        return EndpointRequest(previous: self, request: request)
+    }
+    
+    @discardableResult
+    public func responseDecodable<T: Decodable>(ofType type: T.Type, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
+        }
+        return EndpointRequest(previous: self, request: request)
+    }
+    
+    @discardableResult
+    public func responseSerialized<T: ResponseSerializer>(with serializer: T, completionHandler: @escaping (Result<Response<T.SerializedObject>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.response(responseSerializer: serializer) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
+        }
+        return EndpointRequest(previous: self, request: request)
     }
 }
 
-extension DataRequest {
-    func validate(validator: ResponseValidator?) -> Self {
-        guard let validator = validator else {
-            return self
+extension EndpointRequest where T: UploadRequest {
+    @discardableResult
+    public func progress(closure: @escaping (Double) -> Void) -> EndpointRequest {
+        let request = self.request.uploadProgress { progress in
+            closure(progress.fractionCompleted)
         }
+        return EndpointRequest(previous: self, request: request)
+    }
+}
 
-        return validate { request, response, data -> ValidationResult in
-            do {
-                try validator.validate(statusCode: response.statusCode, request: request, response: response, data: data)
-                return .success(())
-            } catch {
-                return .failure(error)
-            }
+extension EndpointRequest where T: DownloadRequest {
+    @discardableResult
+    public func progress(closure: @escaping (Double) -> Void) -> EndpointRequest {
+        let request = self.request.downloadProgress { progress in
+            closure(progress.fractionCompleted)
         }
+        return EndpointRequest(previous: self, request: request)
     }
 }
