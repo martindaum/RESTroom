@@ -52,9 +52,3 @@ extension Endpoint: URLRequestConvertible {
         return try requestClosure()
     }
 }
-
-extension Endpoint: URLConvertible {
-    public func asURL() throws -> URL {
-        return url
-    }
-}

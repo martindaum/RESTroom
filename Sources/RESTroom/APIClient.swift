@@ -59,14 +59,14 @@ extension APIClient {
     @discardableResult
     public func upload(data: Data, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
         return EndpointRequest(endpoint: endpoint,
-                               request: request(session.upload(data, to: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               request: request(session.upload(data, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
                                mapper: endpoint.mapper ?? mapper)
     }
     
     @discardableResult
     public func upload(file url: URL, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
         return EndpointRequest(endpoint: endpoint,
-                               request: request(session.upload(url, to: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               request: request(session.upload(url, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
                                mapper: endpoint.mapper ?? mapper)
     }
     
