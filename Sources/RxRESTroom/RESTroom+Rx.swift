@@ -16,7 +16,7 @@ import RESTroom
 
 extension EndpointRequest where T: DataRequest {
     public func response() -> Single<Response<Void>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.response { result in
                 switch result {
                 case .success(let object):
@@ -33,7 +33,7 @@ extension EndpointRequest where T: DataRequest {
     }
     
     public func responseJSON() -> Single<Response<Any>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.responseJSON { result in
                 switch result {
                 case .success(let object):
@@ -50,7 +50,7 @@ extension EndpointRequest where T: DataRequest {
     }
     
     public func responseData() -> Single<Response<Data>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.responseData { result in
                 switch result {
                 case .success(let object):
@@ -67,7 +67,7 @@ extension EndpointRequest where T: DataRequest {
     }
     
     public func responseString() -> Single<Response<String>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.responseString { result in
                 switch result {
                 case .success(let object):
@@ -84,7 +84,7 @@ extension EndpointRequest where T: DataRequest {
     }
     
     public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: Alamofire.DataDecoder = JSONDecoder()) -> Single<Response<T>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.responseDecodable(ofType: type, decoder: decoder) { result in
                 switch result {
                 case .success(let object):
@@ -101,7 +101,7 @@ extension EndpointRequest where T: DataRequest {
     }
     
     public func responseSerialized<T: ResponseSerializer>(with serializer: T) -> Single<Response<T.SerializedObject>> {
-        return Single.create { [unowned self] single in
+        return Single.create { single in
             let request = self.responseSerialized(with: serializer) { result in
                 switch result {
                 case .success(let object):
@@ -120,7 +120,7 @@ extension EndpointRequest where T: DataRequest {
 
 extension EndpointRequest where T: UploadRequest {
     public func progress() -> Observable<Double> {
-        return Observable.create { [unowned self] observable in
+        return Observable.create { observable in
             self.progress { progress in
                 observable.onNext(progress)
                 
@@ -136,7 +136,7 @@ extension EndpointRequest where T: UploadRequest {
 
 extension EndpointRequest where T: DownloadRequest {
     public func progress() -> Observable<Double> {
-        return Observable.create { [unowned self] observable in
+        return Observable.create { observable in
             self.progress { progress in
                 observable.onNext(progress)
                 
