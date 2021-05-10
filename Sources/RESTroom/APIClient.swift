@@ -71,6 +71,13 @@ extension APIClient {
     }
     
     @discardableResult
+    public func multipartUpload(_ closure: @escaping (MultipartFormData) -> Void, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
+        return EndpointRequest(endpoint: endpoint,
+                               request: request(session.upload(multipartFormData: closure, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
+                               mapper: endpoint.mapper ?? mapper)
+    }
+    
+    @discardableResult
     public func download(fromEndpoint endpoint: Endpoint) -> EndpointRequest<DownloadRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: session.download(endpoint, interceptor: endpoint.interceptor),
