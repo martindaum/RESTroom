@@ -43,8 +43,8 @@ public final class APIClient {
     
     func request<T: DataRequest>(_ request: T, forEndpoint endpoint: Endpoint) -> T {
         return request
-            .validate()
             .validate(validator: endpoint.validator ?? validator)
+            .validate()
     }
 }
 
