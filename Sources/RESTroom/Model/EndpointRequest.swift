@@ -13,17 +13,20 @@ public final class EndpointRequest<T: Request> {
     public let endpoint: Endpoint
     public let request: T
     public let mapper: ErrorMapper?
+    public let decoder: DataDecoder?
     
-    init(endpoint: Endpoint, request: T, mapper: ErrorMapper? = nil) {
+    init(endpoint: Endpoint, request: T, mapper: ErrorMapper? = nil, decoder: DataDecoder? = nil) {
         self.endpoint = endpoint
         self.request = request
         self.mapper = mapper
+        self.decoder = decoder
     }
     
     init(previous: EndpointRequest<T>, request: T) {
         self.endpoint = previous.endpoint
         self.request = request
         self.mapper = previous.mapper
+        self.decoder = previous.decoder
     }
     
     public var id: UUID {

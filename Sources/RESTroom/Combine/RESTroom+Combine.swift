@@ -27,10 +27,11 @@ public extension APIClient {
             .convertResponse(withMapper: mapper)
     }
     
-    func publishDecodable<Element: Decodable>(ofType type: Element.Type, forEndpoint endpoint: Endpoint) -> AnyPublisher<Response<Element>, Error> {
+    func publishDecodable<Element: Decodable>(ofType type: Element.Type, forEndpoint endpoint: Endpoint, decoder: DataDecoder? = nil) -> AnyPublisher<Response<Element>, Error> {
         let mapper = endpoint.mapper ?? self.mapper
+        let decoder = decoder ?? self.decoder ?? JSONDecoder()
         return request(forEndpoint: endpoint).request
-            .publishDecodable(preprocessor: endpoint.preprocessor)
+            .publishDecodable(preprocessor: endpoint.preprocessor, decoder: decoder)
             .convertResponse(withMapper: mapper)
     }
     

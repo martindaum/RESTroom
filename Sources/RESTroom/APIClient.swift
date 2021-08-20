@@ -53,35 +53,40 @@ extension APIClient {
     public func request(forEndpoint endpoint: Endpoint) -> EndpointRequest<DataRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: request(session.request(endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
-                               mapper: endpoint.mapper ?? mapper)
+                               mapper: endpoint.mapper ?? mapper,
+                               decoder: decoder)
     }
     
     @discardableResult
     public func upload(data: Data, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: request(session.upload(data, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
-                               mapper: endpoint.mapper ?? mapper)
+                               mapper: endpoint.mapper ?? mapper,
+                               decoder: decoder)
     }
     
     @discardableResult
     public func upload(file url: URL, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: request(session.upload(url, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
-                               mapper: endpoint.mapper ?? mapper)
+                               mapper: endpoint.mapper ?? mapper,
+                               decoder: decoder)
     }
     
     @discardableResult
     public func multipartUpload(_ closure: @escaping (MultipartFormData) -> Void, toEndpoint endpoint: Endpoint) -> EndpointRequest<UploadRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: request(session.upload(multipartFormData: closure, with: endpoint, interceptor: endpoint.interceptor), forEndpoint: endpoint),
-                               mapper: endpoint.mapper ?? mapper)
+                               mapper: endpoint.mapper ?? mapper,
+                               decoder: decoder)
     }
     
     @discardableResult
     public func download(fromEndpoint endpoint: Endpoint) -> EndpointRequest<DownloadRequest> {
         return EndpointRequest(endpoint: endpoint,
                                request: session.download(endpoint, interceptor: endpoint.interceptor),
-                               mapper: endpoint.mapper ?? mapper)
+                               mapper: endpoint.mapper ?? mapper,
+                               decoder: decoder)
     }
 }
 
@@ -123,7 +128,8 @@ extension EndpointRequest where T: DataRequest {
     }
     
     @discardableResult
-    public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: DataDecoder = JSONDecoder(), completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
+    public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
+        let decoder: DataDecoder = decoder ?? self.decoder ?? JSONDecoder()
         let mapper = self.mapper
         let request = self.request.responseDecodable(of: type, dataPreprocessor: endpoint.preprocessor, decoder: decoder) { response in
             completionHandler(response.convertedResponse(withMapper: mapper))
