@@ -162,13 +162,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0EA2582E25C94B4200B2484E /* Uploader */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Uploader;
-			sourceTree = "<group>";
-		};
 		0EA2585225C96D4B00B2484E /* Combine */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,7 +177,6 @@
 				0EA2582925C94B2600B2484E /* Extensions */,
 				0EA2582825C94B1F00B2484E /* Model */,
 				0EA2582725C94B1000B2484E /* Utility */,
-				0EA2582E25C94B4200B2484E /* Uploader */,
 				0EC5D4A824E2C3BB007187F2 /* APIClient.swift */,
 			);
 			name = RESTroom;
