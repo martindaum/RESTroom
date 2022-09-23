@@ -119,15 +119,6 @@ extension EndpointRequest where T: DataRequest {
     }
     
     @discardableResult
-    public func responseJSON(completionHandler: @escaping (Result<Response<Any>, Error>) -> Void) -> EndpointRequest {
-        let mapper = self.mapper
-        let request = self.request.responseJSON(dataPreprocessor: endpoint.preprocessor) { response in
-            completionHandler(response.convertedResponse(withMapper: mapper))
-        }
-        return EndpointRequest(previous: self, request: request)
-    }
-    
-    @discardableResult
     public func responseDecodable<T: Decodable>(ofType type: T.Type, decoder: DataDecoder? = nil, completionHandler: @escaping (Result<Response<T>, Error>) -> Void) -> EndpointRequest {
         let decoder: DataDecoder = decoder ?? self.decoder ?? JSONDecoder()
         let mapper = self.mapper
@@ -158,6 +149,15 @@ extension EndpointRequest where T: UploadRequest {
 }
 
 extension EndpointRequest where T: DownloadRequest {
+    @discardableResult
+    public func responseData(completionHandler: @escaping (Result<Response<Data>, Error>) -> Void) -> EndpointRequest {
+        let mapper = self.mapper
+        let request = self.request.responseData(dataPreprocessor: endpoint.preprocessor) { response in
+            completionHandler(response.convertedResponse(withMapper: mapper))
+        }
+        return EndpointRequest(previous: self, request: request)
+    }
+    
     @discardableResult
     public func progress(closure: @escaping (Double) -> Void) -> EndpointRequest {
         let request = self.request.downloadProgress { progress in
