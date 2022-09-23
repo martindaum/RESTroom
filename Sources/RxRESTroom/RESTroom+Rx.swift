@@ -32,23 +32,6 @@ extension EndpointRequest where T: DataRequest {
         }
     }
     
-    public func responseJSON() -> Single<Response<Any>> {
-        return Single.create { single in
-            let request = self.responseJSON { result in
-                switch result {
-                case .success(let object):
-                    single(.success(object))
-                case .failure(let error):
-                    single(.failure(error))
-                }
-            }
-
-            return Disposables.create {
-                request.cancel()
-            }
-        }
-    }
-    
     public func responseData() -> Single<Response<Data>> {
         return Single.create { single in
             let request = self.responseData { result in
@@ -135,6 +118,23 @@ extension EndpointRequest where T: UploadRequest {
 }
 
 extension EndpointRequest where T: DownloadRequest {
+    public func responseData() -> Single<Response<Data>> {
+        return Single.create { single in
+            let request = self.responseData { result in
+                switch result {
+                case .success(let object):
+                    single(.success(object))
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+    
     public func progress() -> Observable<Double> {
         return Observable.create { observable in
             self.progress { progress in

@@ -14,8 +14,8 @@ let package = Package(
     name: "RESTroom",
     platforms: [
         .macOS(.v10_12),
-        .iOS(.v11),
-        .tvOS(.v11),
+        .iOS(.v12),
+        .tvOS(.v12),
         .watchOS(.v3)
     ],
     products: [
